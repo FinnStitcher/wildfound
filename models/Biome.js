@@ -1,18 +1,18 @@
 const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Realm extends Model {};
+class Biome extends Model {};
 
-Realm.init(
+Biome.init(
     {
         id: {
-            type: DataTypes.STRING(2),
+            type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        realm_name: {
-            type: DataTypes.STRING(15),
+        biome_name: {
+            type: DataTypes.STRING(50),
             allowNull: false
         }
     },
@@ -21,8 +21,8 @@ Realm.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'realms'
+        modelName: 'biomes'
     }
 );
 
-module.exports = Realm;
+module.exports = Biome;

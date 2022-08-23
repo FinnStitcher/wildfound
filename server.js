@@ -1,6 +1,6 @@
 const express = require('express');
 const sequelize = require('./config/connection');
-// const routes = require('./routes');
+const routes = require('./routes');
 const path = require ('path');
 
 const exphbs = require('express-handlebars');
@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-// app.use(routes);
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('http://localhost:' + PORT));
