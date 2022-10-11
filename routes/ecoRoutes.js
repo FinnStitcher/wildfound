@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-router.get('/:ecoId', (req, res) => {
-	res.render('search-ecoregion', { params: req.params.ecoId });
+router.get('/:ecoID', (req, res) => {
+	res.render('search-ecoregion');
 });
 
 module.exports = router;

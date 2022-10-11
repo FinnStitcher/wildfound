@@ -1,11 +1,34 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-	res.render('search-biome');
+const {Biome, Ecoregion, Realm} = require('../models');
+
+router.get('/', async (req, res) => {
+    const dbResponse = await Biome.findAll();
+
+    const data = dbResponse.map(element => element.get({plain: true}));
+
+	res.render('list-biomes', {data});
 });
 
-router.get('/:biomeId', (req, res) => {
-	res.render('search-biome', { params: req.params.biomeId });
+router.get('/:biomeID', async (req, res) => {
+    const {biomeID} = req.params;
+
+    const dbResponse = await Realm.findAll({
+        attributes: ['id', 'realm_name'],
+        include: [
+            {
+                model: Ecoregion,
+                attributes: ['id', 'ecoregion_name'],
+                where: {
+                    biome_id: biomeID
+                }
+            }
+        ]
+    })
+
+    const data = dbResponse.map(element => element.get({plain: true}));
+
+	res.render('search-biome', {data});
 });
 
 module.exports = router;

@@ -1,9 +1,7 @@
 const router = require('express').Router();
 
-const {getRealms} = require('../controllers/realmController');
-const { Realm, Biome, Ecoregion } = require('../models');
+const { Biome, Ecoregion } = require('../models');
 
-// realms
 router.get('/', (req, res) => {
 	res.render('list-realms');
 });
@@ -30,3 +28,5 @@ router.get('/:realmID', async (req, res) => {
 
 	res.render('search-realm', { data });
 });
+
+module.exports = router;
