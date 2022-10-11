@@ -1,52 +1,54 @@
 const router = require('express').Router();
 
-const {Species, Class, Order, Family, Genus} = require('../models');
+const { Species, Order, Family, Genus } = require('../models');
 
+// going to revise this to add orders
 router.put('/', async (req, res) => {
-    const {class_id} = req.body;
-
-    const response = await Class.findOne({
+    for (let order_id = 37; order_id <= 76; order_id++) {
+	const response = await Order.findOne({
         where: {
-            id: class_id
+            id: order_id
         },
-        include: {
-            model: Order,
-            include: {
-                model: Family,
-                include: {
-                    model: Genus,
-                    include: {
-                        model: Species,
-                        attributes: ['id', 'species_name']
-                    }
-                }
-            }
-        }
-    });
+		include: {
+			model: Family,
+			include: {
+				model: Genus,
+				include: {
+					model: Species
+				}
+			}
+		}
+	});
 
-    const plainData = response.get({plain: true});
-    
-    // stripping back the layers of taxonomy
-    const speciesIds = [];
+	const plainData = response.get({ plain: true });
 
-    plainData.orders.forEach(order => {
-        order.families.forEach(family => {
+	// stripping back the layers of taxonomy
+	const speciesIds = [];
+
+    plainData.families.forEach(family => {
             family.genera.forEach(genus => {
-                genus.species.forEach(element => {
-                    speciesIds.push(element.id);
+                genus.species.forEach(species => {
+                    speciesIds.push(species.id)
                 })
             })
-        })
-    });
+        });
 
-    // NOW we can update the table
-    const response2 = await Species.update({class_id}, {
-        where: {
-            id: [...speciesIds]
-        }
-    });
+	// NOW we can update the table
+	const response2 = await Species.update(
+		{ order_id },
+		{
+			where: {
+				id: [...speciesIds]
+			}
+		}
+	);
 
-    res.json(response2);
-})
+    if (response2) {
+        console.log('done with order ' + order_id)
+    }
+    }
+
+    console.log('all done');
+});
 
 module.exports = router;

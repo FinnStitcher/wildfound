@@ -22,6 +22,10 @@ Species.init(
         class_id: {
             type: DataTypes.TINYINT,
             allowNull: true
+        },
+        order_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true
         }
     },
     {
