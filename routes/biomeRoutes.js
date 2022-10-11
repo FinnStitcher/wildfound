@@ -22,6 +22,10 @@ router.get('/:biomeID', async (req, res) => {
                 attributes: ['id', 'ecoregion_name'],
                 where: {
                     biome_id: biomeID
+                },
+                include: {
+                    model: Biome,
+                    attributes: ['biome_name']
                 }
             }
         ]
@@ -29,7 +33,7 @@ router.get('/:biomeID', async (req, res) => {
 
     const data = dbResponse.map(element => element.get({plain: true}));
 
-	res.render('search-biome', {data});
+	res.render('search-biome', {data, currentBiome: data[0].ecoregions[0].biome.biome_name});
 });
 
 module.exports = router;

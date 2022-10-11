@@ -1,7 +1,15 @@
-<ul>
-	{{#each data}}
-		<li>
-			<a href='/biomes/{{id}}'>{{biome_name}}</a>
-		</li>
-	{{/each}}
-</ul>
+<div class="text-center">
+<h1 class="text-2xl">Biomes</h1>
+
+<p>Select a biome to see a list of ecoregions belonging to it.</p>
+
+<hr class="my-3">
+
+<div class="flex flex-row flex-wrap justify-center">
+    {{#each data}}
+    <p class="basis-1/3 hover:bg-green-200 hover:font-semibold rounded p-0.5">
+        <a href='/biomes/{{id}}'>{{biome_name}}</a>
+    </p>
+    {{/each}}
+</div>
+</div>

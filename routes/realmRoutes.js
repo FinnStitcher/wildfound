@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { Biome, Ecoregion } = require('../models');
+const { Biome, Ecoregion, Realm } = require('../models');
 
 router.get('/', (req, res) => {
 	res.render('list-realms');
@@ -19,6 +19,10 @@ router.get('/:realmID', async (req, res) => {
                 attributes: ['id', 'ecoregion_name'],
                 where: {
                     realm_id: realmID
+                },
+                include: {
+                    model: Realm,
+                    attributes: ['realm_name']
                 }
             }
         ]
@@ -26,7 +30,7 @@ router.get('/:realmID', async (req, res) => {
 
     const data = dbResponse.map(element => element.get({plain: true}));
 
-	res.render('search-realm', { data });
+	res.render('search-realm', { data, currentRealm: data[0].ecoregions[0].realm.realm_name });
 });
 
 module.exports = router;
