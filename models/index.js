@@ -87,6 +87,15 @@ Class.hasMany(Species, {
     foreign_key: 'class_id'
 });
 
+// one order <-> many species
+Species.belongsTo(Order, {
+    foreign_key: 'order_id'
+});
+
+Order.hasMany(Species, {
+    foreign_key: 'order_id'
+});
+
 // one species <-> one common name
 Species.hasOne(CommonName, {
     foreign_key: 'species_id'

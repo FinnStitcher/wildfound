@@ -1,10 +1,11 @@
 const router = require('express').Router();
 
-const {Ecoregion, Species, Genus, Class, CommonName} = require('../models');
+const {Ecoregion, Species, Genus, Class, Order, CommonName} = require('../models');
 
 router.get('/:ecoID', async (req, res) => {
     const {ecoID} = req.params;
-    
+
+    // making orders an extra layer in that stack was unacceptably slow
     const dbResponse = await Class.findAll({
         attributes: ['id', 'class_name'],
         include: {
@@ -25,7 +26,11 @@ router.get('/:ecoID', async (req, res) => {
                 },
                 {
                     model: CommonName,
-                    attribues: ['id', 'common_name']
+                    attributes: ['id', 'common_name']
+                },
+                {
+                    model: Order,
+                    attributes: ['id', 'order_name']
                 }
             ]
         }
