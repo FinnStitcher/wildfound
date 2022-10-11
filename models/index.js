@@ -77,6 +77,15 @@ Genus.hasMany(Species, {
     foreign_key: 'genus_id'
 });
 
+// one class <-> many species
+Species.belongsTo(Class, {
+    foreign_key: 'class_id'
+});
+
+Class.hasMany(Species, {
+    foreign_key: 'class_id'
+});
+
 module.exports = {
     Realm,
     Biome,

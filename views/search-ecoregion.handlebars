@@ -1,5 +1,11 @@
-<p>sort these by class or whatever later</p>
+{{#each data}}
+<section>
+    <h2>{{class_name}}</h2>
 
-{{#each data.species}}
-<p>{{species_name}}</p>
+    {{#each species}}
+        <p>{{genus.genus_name}} {{species_name}}</p>
+    {{/each}}
+</section>
+
+<hr>
 {{/each}}
