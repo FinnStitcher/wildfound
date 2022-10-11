@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
 router.get('/:biomeID', async (req, res) => {
     const {biomeID} = req.params;
 
+    // easiest way to get realm and ecoregion data matching this biome
     const dbResponse = await Realm.findAll({
         attributes: ['id', 'realm_name'],
         include: [
