@@ -2,6 +2,10 @@ const Realm = require('./Realm');
 const Biome = require('./Biome');
 const Ecoregion = require('./Ecoregion');
 
+const Order = require('./Order');
+const Class = require('./Class');
+const Family = require('./Family');
+const Genus = require('./Genus');
 const Species = require('./Species');
 
 const EcoregionSpecies = require('./EcoregionSpecies');
@@ -37,10 +41,50 @@ Species.belongsToMany(Ecoregion, {
     foreignKey: 'species_id'
 });
 
+// one class <-> many orders
+Order.belongsTo(Class, {
+    foreign_key: 'class_id'
+});
+
+Class.hasMany(Order, {
+    foreign_key: 'class_id'
+});
+
+// one order <-> many families
+Family.belongsTo(Order, {
+    foreign_key: 'order_id'
+});
+
+Order.hasMany(Family, {
+    foreign_key: 'order_id'
+});
+
+// one family <-> many genera
+Genus.belongsTo(Family, {
+    foreign_key: 'family_id'
+});
+
+Family.hasMany(Genus, {
+    foreign_key: 'family_id'
+});
+
+// one genus <-> many species
+Species.belongsTo(Genus, {
+    foreign_key: 'genus_id'
+});
+
+Genus.hasMany(Species, {
+    foreign_key: 'genus_id'
+});
+
 module.exports = {
     Realm,
     Biome,
     Ecoregion,
     Species,
+    Genus,
+    Family,
+    Class,
+    Order,
     EcoregionSpecies
 };

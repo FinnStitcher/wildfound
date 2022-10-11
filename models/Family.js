@@ -15,7 +15,7 @@ Family.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        class_id: {
+        order_id: {
             type: DataTypes.INTEGER,
             allowNull: false
         }
