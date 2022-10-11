@@ -5,7 +5,7 @@ function getRealms (req, res) {
     Realm.findAll({
         attributes: ['id', 'realm_name']
     })
-    .then(realmData => res.json(realmData))
+    .then(data => res.json(data))
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
@@ -16,23 +16,20 @@ function getRealms (req, res) {
 function getOneRealm (req, res) {
     const {realmID} = req.params;
 
-    Realm.findOne({
-        where: {
-            id: req.params
-        },
-        attributes: ['id', 'realm_name'],
+    // there's no realm-biome table, so i'm hacking this a little
+    Biome.findAll({
+        attributes: ['id', 'biome_name'],
         include: [
             {
                 model: Ecoregion,
-                attributes: ['ecoregion_name']
-            },
-            {
-                model: Biome,
-                attributes: ['biome_name']
+                attributes: ['id', 'ecoregion_name'],
+                where: {
+                    realm_id: realmID
+                }
             }
         ]
     })
-    .then(realmData => res.json(realmData))
+    .then(data => res.json(data))
     .catch(err => {
         console.log(err);
         res.status(400).json(err);
