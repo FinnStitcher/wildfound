@@ -1,13 +1,6 @@
-// making a route that will automatically figure out what order each species belongs to and put the id in
-
 const router = require('express').Router();
 
 const {Species, Class, Order, Family, Genus} = require('../models');
-
-// so i'm thinking what we need to do is run two methods
-// first class.findone and include all the species at the bottom of the chain
-// and make an array of those species ids
-// then species.update with the class id in the body, going through that array of species ids
 
 router.put('/', async (req, res) => {
     const {class_id} = req.body;
