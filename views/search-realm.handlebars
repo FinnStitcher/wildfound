@@ -1,3 +1,11 @@
-<p>handlebars template: search-realm</p>
+{{#each data}}
+<section>
+    <h2>{{biome_name}}</h2>
 
-<p>{{params}}</p>
+    {{#each ecoregions}}
+        <p>{{ecoregion_name}}</p>
+    {{/each}}    
+</section>
+
+<hr>
+{{/each}}
