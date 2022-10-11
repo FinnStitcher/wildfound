@@ -8,4 +8,8 @@ router.use('/genera', require('./genusRoutes'));
 
 router.use('/fix', require('./updateRoutes'));
 
+router.get('/', (req, res) => {
+    res.render('home');
+});
+
 module.exports = router;

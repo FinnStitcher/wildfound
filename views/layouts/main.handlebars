@@ -4,11 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
     <title>Wildfound</title>
 </head>
 <body>
-    <main>
-        {{{body}}}
-    </main>
+    <div class="flex flex-row">
+        <aside class="bg-green-200 basis-1/6 h-screen">
+            <h1 class="text-xl text-center py-4">Wildfound</h1>
+
+            <nav class="flex flex-col">
+                <ul class="ml-2.5">
+                    <li>Realms</li>
+                    <li>Biomes</li>
+                    <li>Ecoregions</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="basis-5/6">
+            {{{body}}}
+        </main>
+    </div>
 </body>
 </html>
