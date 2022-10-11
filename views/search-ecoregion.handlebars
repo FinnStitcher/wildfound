@@ -3,7 +3,11 @@
     <h2>{{class_name}}</h2>
 
     {{#each species}}
-        <p>{{genus.genus_name}} {{species_name}}</p>
+        {{#if common_name.common_name}}
+            <p>{{genus.genus_name}} {{species_name}} - {{common_name.common_name}}</p>
+        {{else}}
+            <p>{{id}} {{genus.genus_name}} {{species_name}}</p>
+        {{/if}}
     {{/each}}
 </section>
 

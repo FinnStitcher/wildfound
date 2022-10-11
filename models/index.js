@@ -9,6 +9,7 @@ const Genus = require('./Genus');
 const Species = require('./Species');
 
 const EcoregionSpecies = require('./EcoregionSpecies');
+const CommonName = require('./CommonName');
 
 // many ecoregions <-> one biome
 Ecoregion.belongsTo(Biome, {
@@ -86,6 +87,15 @@ Class.hasMany(Species, {
     foreign_key: 'class_id'
 });
 
+// one species <-> one common name
+Species.hasOne(CommonName, {
+    foreign_key: 'species_id'
+});
+
+CommonName.belongsTo(Species, {
+    foreign_key: 'species_id'
+});
+
 module.exports = {
     Realm,
     Biome,
@@ -95,5 +105,6 @@ module.exports = {
     Family,
     Class,
     Order,
-    EcoregionSpecies
+    EcoregionSpecies,
+    CommonName
 };
