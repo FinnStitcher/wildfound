@@ -1,0 +1,8 @@
+{{#if data.common_name}}
+    <h1 class='text-center text-2xl'>{{data.common_name.common_name}}</h1>
+    <p class='text-center'>{{data.genus.genus_name}} {{data.species_name}}</p>
+{{else}}
+    <h1 class="text-center text-2xl">{{data.genus.genus_name}} {{data.species_name}}</h1>
+{{/if}}
+
+<p>list of realms and ecoregions this species is present in will go here</p>

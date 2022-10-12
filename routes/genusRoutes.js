@@ -21,7 +21,6 @@ router.get('/:genusID', async (req, res) => {
     });
 
     const data = dbResponse.get({plain: true});
-    console.log(data);
 
 	res.render('search-genus', { data });
 });
