@@ -1,21 +1,31 @@
 const router = require('express').Router();
 
-const {Ecoregion, Species, Genus, Class, Order, CommonName} = require('../models');
+const {Realm, Biome, Ecoregion, Species, Genus, Class, Order, CommonName} = require('../models');
 
 router.get('/:ecoID', async (req, res) => {
     const {ecoID} = req.params;
 
-    // get this ecoregion and all connected species
+    // get this ecoregion and all connected species, as well as the biome and realm
     const dbResponse1 = await Ecoregion.findOne({
         where: {
             id: ecoID
         },
         attributes: ['id', 'ecoregion_name'],
-        include: {
-            model: Species,
-            as: 'species',
-            attributes: ['id', 'species_name']
-        }
+        include: [
+            {
+                model: Species,
+                as: 'species',
+                attributes: ['id', 'species_name']
+            },
+            {
+                model: Biome,
+                attributes: ['id', 'biome_name']
+            },
+            {
+                model: Realm,
+                attributes: ['id', 'realm_name']
+            }
+        ]
     });
     const data1 = dbResponse1.get({plain: true});
 
@@ -52,7 +62,7 @@ router.get('/:ecoID', async (req, res) => {
     });
     const data2 = dbResponse2.map(element => element.get({plain: true}));
 
-	res.render('search-ecoregion', {data: data2});
+	res.render('search-ecoregion', {ecoData: data1, speciesData: data2});
 });
 
 module.exports = router;
