@@ -1,15 +1,17 @@
 {{#each data}}
-<section>
-    <h2>{{class_name}}</h2>
+	<section>
+		<h2>{{class_name}}</h2>
 
-    {{#each species}}
-        {{#if common_name.common_name}}
-            <p>{{genus.genus_name}} {{species_name}} - {{common_name.common_name}}</p>
-        {{else}}
-            <p>{{id}} {{genus.genus_name}} {{species_name}}</p>
-        {{/if}}
-    {{/each}}
-</section>
+		{{#each orders}}
+			<h3>{{order_name}}</h3>
 
-<hr>
+			{{#each species}}
+                {{#if common_name.common_name}}
+                    <p>{{genus.genus_name}} {{species_name}} - {{common_name.common_name}}</p>
+                {{else}}
+                    <p>{{genus.genus_name}} {{species_name}}</p>
+                {{/if}}
+			{{/each}}
+		{{/each}}
+	</section>
 {{/each}}
