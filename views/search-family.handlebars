@@ -2,13 +2,8 @@
 	<h1 class='text-2xl'>{{data.family_name}}</h1>
 
 	<div class='flex flex-row flex-wrap justify-center'>
-		{{#each data.genera}}
-			<p
-				class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/3'
-			><a href='/genera/{{id}}'>
-					{{genus_name}}
-				</a>
-			</p>
+		{{#each data.genera as |g|}}
+			{{> list-item g}}
 		{{/each}}
 	</div>
 </div>

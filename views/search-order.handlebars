@@ -2,13 +2,8 @@
 	<h1 class='text-2xl'>{{data.order_name}}</h1>
 
 	<div class='flex flex-row flex-wrap justify-center'>
-		{{#each data.families}}
-			<p
-				class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/3'
-			><a href='/families/{{id}}'>
-					{{family_name}}
-				</a>
-			</p>
+		{{#each data.families as |f|}}
+			{{> list-item f}}
 		{{/each}}
 	</div>
 </div>
