@@ -1,0 +1,14 @@
+<div class='text-center'>
+	<h1 class='text-2xl'>{{data.class_name}}</h1>
+
+	<div class='flex flex-row flex-wrap justify-center'>
+		{{#each data.orders}}
+			<p
+				class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/3'
+			><a href='/orders/{{id}}'>
+					{{order_name}}
+				</a>
+			</p>
+		{{/each}}
+	</div>
+</div>

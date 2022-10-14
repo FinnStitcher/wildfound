@@ -8,12 +8,13 @@
   },
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js && npx tailwindcss -i ./public/css/origin.css -o ./public/css/tailwind.css --watch"
   },
   "name": "wildfound",
   "version": "1.0.0",
   "main": "server.js",
   "devDependencies": {
+    "concurrently": "^7.4.0",
     "nodemon": "^2.0.20"
   },
   "author": "",

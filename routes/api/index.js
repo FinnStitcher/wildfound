@@ -1,5 +1,5 @@
 // functions for modifying the database
-const {Order} = require('../models');
+const {Order} = require('../../models');
 
 // POST
 

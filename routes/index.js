@@ -5,6 +5,7 @@ router.use('/realms', require('./realmRoutes'));
 router.use('/biomes', require('./biomeRoutes'));
 router.use('/ecoregions', require('./ecoRoutes'));
 
+router.use('/classes', require('./classRoutes'));
 router.use('/genera', require('./genusRoutes'));
 router.use('/species', require('./speciesRoutes'));
 
