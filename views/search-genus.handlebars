@@ -1,7 +1,20 @@
-<p>Genus: {{data.genus_name}}</p>
+<h1 class='text-center text-2xl'>Genus <i>{{data.genus_name}}</i></h1>
 
-<ul>
-{{#each data.species}}
-<li>{{species_name}} - {{common_name.common_name}}</li>
-{{/each}}    
-</ul>
+<div class='flex flex-row flex-wrap'>
+	{{#each data.species}}
+		<p
+			class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/3'
+		><a href='/species/{{id}}'>
+				{{#if common_name}}
+					<i>{{../initial}}. {{species_name}}</i>
+					-
+					{{common_name.common_name}}
+                    {{!-- cool how the folder-travelling syntax works here, huh? --}}
+				{{else}}
+					<i>{{initial}}. {{species_name}}</i>
+				{{/if}}
+
+			</a>
+		</p>
+	{{/each}}
+</div>

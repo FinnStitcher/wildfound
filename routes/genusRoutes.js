@@ -22,7 +22,7 @@ router.get('/:genusID', async (req, res) => {
 
     const data = dbResponse.get({plain: true});
 
-	res.render('search-genus', { data });
+	res.render('search-genus', { data, initial: data.genus_name[0].toUpperCase() });
 });
 
 module.exports = router;
