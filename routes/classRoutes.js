@@ -6,12 +6,12 @@ router.get('/', (req, res) => {
     res.render('list-classes');
 });
 
-router.get('/:orderID', async (req, res) => {
-    const {orderID} = req.params;
+router.get('/:classID', async (req, res) => {
+    const {classID} = req.params;
 
     const dbResponse = await Class.findOne({
         where: {
-            id: orderID
+            id: classID
         },
         attributes: ['id', 'class_name'],
         include: {
