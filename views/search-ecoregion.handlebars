@@ -13,6 +13,7 @@
 			{{#each orders}}
 				<h3 class='text-lg underline mt-2.5'>{{order_name}}</h3>
 
+                {{!-- not using partial due to unique display --}}
 				<div class='flex flex-row flex-wrap'>
 					{{#each species}}
 						{{#if common_name.common_name}}

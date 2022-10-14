@@ -6,10 +6,8 @@
 <hr class="my-3">
 
 <div class="flex flex-row flex-wrap justify-center">
-    {{#each data}}
-    <p class="basis-1/3 hover:bg-green-200 hover:font-semibold rounded p-0.5">
-        <a href='/biomes/{{id}}'>{{biome_name}}</a>
-    </p>
+    {{#each data as |d|}}
+        {{> list-item d}}
     {{/each}}
 </div>
 </div>
