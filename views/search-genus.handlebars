@@ -1,6 +1,7 @@
 <h1 class='text-center text-2xl'>Genus <i>{{data.genus_name}}</i></h1>
 
 <div class='flex flex-row flex-wrap'>
+    {{!-- not using partial due to unique display --}}
 	{{#each data.species}}
 		<p
 			class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/3'

@@ -30,7 +30,7 @@ router.get('/:realmID', async (req, res) => {
 
     const data = dbResponse.map(element => element.get({plain: true}));
 
-	res.render('search-realm', { data, currentRealm: data[0].ecoregions[0].realm.realm_name });
+	res.render('search-lg-region', { data, current: data[0].ecoregions[0].realm.realm_name });
 });
 
 module.exports = router;

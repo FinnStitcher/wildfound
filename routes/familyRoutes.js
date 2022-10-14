@@ -18,7 +18,7 @@ router.get('/:familyID', async (req, res) => {
 
     const data = dbResponse.get({plain: true});
 
-    res.render('search-family', {data});
+    res.render('search-lg-taxon', {data, subdata: data.genera});
 });
 
 module.exports = router;

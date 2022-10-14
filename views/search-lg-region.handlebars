@@ -1,13 +1,13 @@
-<h1 class='text-center text-2xl'>{{currentBiome}}</h1>
+<h1 class='text-center text-2xl'>{{current}}</h1>
 
 <div class='divide-y divide-neutral-300'>
-	{{#each data}}
+	{{#each data as |d|}}
 		<section class='py-3'>
-			<h2 class='text-lg font-semibold'>{{realm_name}}</h2>
+			<h2 class='text-lg font-semibold'>{{locate_name d}}</h2>
 
 			<div class='flex flex-row flex-wrap'>
 				{{#each ecoregions as |e|}}
-                    {{> list-item e}}
+					{{> list-item e}}
 				{{/each}}
 			</div>
 		</section>

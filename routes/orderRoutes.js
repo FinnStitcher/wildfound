@@ -18,7 +18,7 @@ router.get('/:orderID', async (req, res) => {
 
     const data = dbResponse.get({plain: true});
 
-    res.render('search-order', {data});
+    res.render('search-lg-taxon', {data, subdata: data.families});
 });
 
 module.exports = router;
