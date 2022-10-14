@@ -18,14 +18,23 @@
 						{{#if common_name.common_name}}
 							<p
 								class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'
-							>{{genus.genus_name}}
-								{{species_name}}
+							>
+								<a href='/species/{{id}}'>
+									{{genus.genus_name}}
+									{{species_name}}
+								</a>
+
 								-
 								{{common_name.common_name}}</p>
 						{{else}}
 							<p
 								class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'
-							>{{genus.genus_name}} {{species_name}}</p>
+							>
+								<a href='/species/{{id}}'>
+									{{genus.genus_name}}
+									{{species_name}}
+								</a>
+							</p>
 						{{/if}}
 					{{/each}}
 				</div>
