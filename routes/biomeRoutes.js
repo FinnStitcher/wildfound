@@ -33,7 +33,7 @@ router.get('/:biomeID', async (req, res) => {
 
     const data = dbResponse.map(element => element.get({plain: true}));
 
-	res.render('search-biome', {data, currentBiome: data[0].ecoregions[0].biome.biome_name});
+	res.render('search-lg-region', {data, current: data[0].ecoregions[0].biome.biome_name});
 });
 
 module.exports = router;

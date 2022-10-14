@@ -22,7 +22,7 @@ router.get('/:classID', async (req, res) => {
 
     const data = dbResponse.get({plain: true});
 
-    res.render('search-class', {data});
+    res.render('search-lg-taxon', {data, subdata: data.orders});
 });
 
 module.exports = router;
