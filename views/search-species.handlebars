@@ -1,20 +1,22 @@
 {{#if speciesData.common_name}}
-    <h1 class='text-center text-2xl'>{{speciesData.common_name.common_name}}</h1>
-    <p class='text-center'><i>{{speciesData.genus.genus_name}} {{speciesData.species_name}}</i></p>
+    <h1 class='text-center text-2xl'>
+        {{speciesData.common_name.common_name}}
+    </h1>
+    <p class='text-center'>
+        <i>{{speciesData.genus.genus_name}} {{speciesData.species_name}}</i>
+    </p>
 {{else}}
     <h1 class="text-center text-2xl"><i>{{speciesData.genus.genus_name}} {{speciesData.species_name}}</i></h1>
 {{/if}}
+
+<hr class="my-3">
 
 <div class='divide-y divide-neutral-300'>
 	{{#each data}}
 		<section class='py-3'>
 			<h2 class='text-lg font-semibold'>{{realm_name}}</h2>
 
-			<div class='flex flex-row flex-wrap'>
-				{{#each ecoregions as |e|}}
-					{{> list-item e}}
-				{{/each}}
-			</div>
+            {{> list ecoregions}}
 		</section>
 	{{/each}}
 </div>

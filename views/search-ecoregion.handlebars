@@ -1,9 +1,16 @@
 <h1 class='text-center text-2xl'>{{ecoData.ecoregion_name}}</h1>
-<p class='text-center'><a
-		href='/realms/{{ecoData.realm.id}}'
-	>{{ecoData.realm.realm_name}}</a>
+
+<p class='text-center'>
+    <a href='/realms/{{ecoData.realm.id}}'>
+        {{ecoData.realm.realm_name}}
+    </a>
 	-
-	<a href='/biomes/{{ecoData.biome.id}}'>{{ecoData.biome.biome_name}}</a></p>
+	<a href='/biomes/{{ecoData.biome.id}}'>
+        {{ecoData.biome.biome_name}}
+    </a>
+</p>
+
+<hr class="my-3">
 
 <div class='divide-y divide-neutral-300'>
 	{{#each speciesData}}
@@ -17,21 +24,16 @@
 				<div class='flex flex-row flex-wrap'>
 					{{#each species}}
 						{{#if common_name.common_name}}
-							<p
-								class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'
-							>
-								<a href='/species/{{id}}'>
+							<p class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'>
+								<a href='/species/{{id}}' class="italic">
 									{{genus.genus_name}}
 									{{species_name}}
 								</a>
-
 								-
 								{{common_name.common_name}}</p>
 						{{else}}
-							<p
-								class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'
-							>
-								<a href='/species/{{id}}'>
+							<p class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'>
+								<a href='/species/{{id}}' class="italic">
 									{{genus.genus_name}}
 									{{species_name}}
 								</a>
