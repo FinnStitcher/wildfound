@@ -5,11 +5,7 @@
 		<section class='py-3'>
 			<h2 class='text-lg font-semibold'>{{locate_name d}}</h2>
 
-			<div class='flex flex-row flex-wrap'>
-				{{#each ecoregions as |e|}}
-					{{> list-item e}}
-				{{/each}}
-			</div>
+            {{> list ecoregions}}
 		</section>
 	{{/each}}
 </div>
