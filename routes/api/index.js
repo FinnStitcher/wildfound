@@ -1,30 +1,11 @@
-// functions for modifying the database
-const {Order} = require('../../models');
+const router = require('express').Router();
 
-// POST
+const {getSpeciesByFamily, createOrder, createSpecies, modifySpecies, modifyGenus, modifyFamily, deleteOrder} = require('./functions');
 
-async function createOrder(req, res) {
-    const {body} = req;
+router.route('/orders').post(createOrder).delete(deleteOrder);
+router.route('/families').put(modifyFamily);
+router.route('/families/species').get(getSpeciesByFamily);
+router.route('/genera').put(modifyGenus);
+router.route('/species').post(createSpecies).put(modifySpecies);
 
-    let dbResponse;
-
-    if (typeof body === 'object') {
-        dbResponse = await Order.bulkCreate(body);
-    } else {
-        dbResponse = await Order.create(body);
-    }
-
-    const data = dbResponse.get({plain: true});
-    res.json(data);
-};
-// create new order
-// create new common name
-
-// PUT
-
-// modify family
-// modify genus
-// modify species
-// modify common name
-
-module.exports = {createOrder};
+module.exports = router;

@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const {createOrder} = require('./api');
 
 router.use('/realms', require('./realmRoutes'));
 router.use('/biomes', require('./biomeRoutes'));
@@ -11,7 +10,7 @@ router.use('/families', require('./familyRoutes'));
 router.use('/genera', require('./genusRoutes'));
 router.use('/species', require('./speciesRoutes'));
 
-router.post(createOrder);
+router.use('/api', require('./api'));
 
 router.get('/', (req, res) => {
     res.render('home');
