@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { Biome, Ecoregion, Realm } = require('../models');
 
 router.get('/', (req, res) => {
-	res.render('list-realms');
+	res.render('realms-home');
 });
 
 router.get('/:realmID', async (req, res) => {
