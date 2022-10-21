@@ -1,6 +1,34 @@
 const router = require('express').Router();
+const {Op} = require('sequelize');
 
 const {Realm, Biome, Ecoregion, Species, Genus, Class, Order, CommonName} = require('../models');
+
+router.get('/', async (req, res) => {
+    if (req.query.search) {
+        const {search} = req.query;
+
+        // get dashes out of search term
+        const searchTerm = search.replace(/-/g, ' ');
+
+        // make db search looking for names matching search term
+        // Op.regexp turns it into a regular expression automatically
+        // case insensitive too
+        // very polite
+        const dbQueryResponse = await Ecoregion.findAll({
+            where: {
+                ecoregion_name: {
+                    [Op.regexp]: searchTerm
+                }
+            }
+        });
+
+        const queryData = dbQueryResponse.map(element => element.get({plain: true}));
+        
+        console.log(queryData);
+    }
+
+    res.render('ecos-home');
+});
 
 router.get('/:ecoID', async (req, res) => {
     const {ecoID} = req.params;

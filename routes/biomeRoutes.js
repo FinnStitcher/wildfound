@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
 
     const data = dbResponse.map(element => element.get({plain: true}));
 
-	res.render('list-biomes', {data});
+	res.render('biomes-home', {data});
 });
 
 router.get('/:biomeID', async (req, res) => {
