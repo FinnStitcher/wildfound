@@ -1,7 +1,29 @@
-// functions for modifying the database
-const {Order, Family, Genus, Species} = require('../../models');
+const {Op} = require('sequelize');
+
+const {Ecoregion, Order, Family, Genus, Species} = require('../../models');
 
 // GET
+async function getEcoregions(req, res) {
+    const {search} = req.query;
+    const searchTerm = search.replace(/-/g, ' ');
+
+    // make db search looking for names matching search term
+    // Op.regexp turns it into a regular expression automatically
+    // case insensitive too
+    // very polite
+    const dbResponse = await Ecoregion.findAll({
+        where: {
+            ecoregion_name: {
+                [Op.regexp]: searchTerm
+            }
+        }
+    });
+
+    const data = dbResponse.map(element => element.get({plain: true}));
+
+    res.json(data);
+};
+
 async function getSpeciesByFamily(req, res) {
     const {idArray} = req.body;
 
@@ -111,4 +133,4 @@ async function deleteOrder(req, res) {
     res.json(dbResponse);
 }
 
-module.exports = {getSpeciesByFamily, createOrder, createSpecies, modifyFamily, modifyGenus, modifySpecies, deleteOrder};
+module.exports = {getEcoregions, getSpeciesByFamily, createOrder, createSpecies, modifyFamily, modifyGenus, modifySpecies, deleteOrder};

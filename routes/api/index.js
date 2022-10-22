@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
-const {getSpeciesByFamily, createOrder, createSpecies, modifySpecies, modifyGenus, modifyFamily, deleteOrder} = require('./functions');
+const {getEcoregions, getSpeciesByFamily, createOrder, createSpecies, modifySpecies, modifyGenus, modifyFamily, deleteOrder} = require('./functions');
+
+router.route('/ecoregions').get(getEcoregions);
 
 router.route('/orders').post(createOrder).delete(deleteOrder);
 router.route('/families').put(modifyFamily);
