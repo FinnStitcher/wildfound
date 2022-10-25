@@ -1,6 +1,6 @@
 const {Op} = require('sequelize');
 
-const {Ecoregion, Realm, Biome, Order, Family, Genus, Species} = require('../../models');
+const {Ecoregion, Realm, Biome, Order, Class, Family, Genus, Species} = require('../../models');
 
 // GET
 async function getEcoregions(req, res) {
@@ -34,6 +34,29 @@ async function getEcoregions(req, res) {
 
     res.json(data);
 };
+
+async function getOrders(req, res) {
+    const {search} = req.query;
+    const searchTerm = search.replace(/-/g, ' ');
+
+    const dbResponse = await Order.findAll({
+        where: {
+            order_name: {
+                [Op.regexp]: searchTerm
+            }
+        },
+        include: [
+            {
+                model: Class,
+                attributes: ['class_name', 'id']
+            }
+        ]
+    });
+
+    const data = dbResponse.map(element => element.get({plain: true}));
+
+    res.json(data);
+}
 
 async function getSpeciesByFamily(req, res) {
     const {idArray} = req.body;
@@ -144,4 +167,4 @@ async function deleteOrder(req, res) {
     res.json(dbResponse);
 }
 
-module.exports = {getEcoregions, getSpeciesByFamily, createOrder, createSpecies, modifyFamily, modifyGenus, modifySpecies, deleteOrder};
+module.exports = {getEcoregions, getOrders, getSpeciesByFamily, createOrder, createSpecies, modifyFamily, modifyGenus, modifySpecies, deleteOrder};
