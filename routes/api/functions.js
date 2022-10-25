@@ -1,10 +1,11 @@
 const {Op} = require('sequelize');
 
-const {Ecoregion, Order, Family, Genus, Species} = require('../../models');
+const {Ecoregion, Realm, Biome, Order, Family, Genus, Species} = require('../../models');
 
 // GET
 async function getEcoregions(req, res) {
     const {search} = req.query;
+    // turn dashes back into spaces
     const searchTerm = search.replace(/-/g, ' ');
 
     // make db search looking for names matching search term
@@ -16,7 +17,17 @@ async function getEcoregions(req, res) {
             ecoregion_name: {
                 [Op.regexp]: searchTerm
             }
-        }
+        },
+        include: [
+            {
+                model: Realm,
+                attributes: ['realm_name', 'id']
+            },
+            {
+                model: Biome,
+                attributes: ['biome_name', 'id']
+            }
+        ]
     });
 
     const data = dbResponse.map(element => element.get({plain: true}));
