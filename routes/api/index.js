@@ -1,8 +1,10 @@
 const router = require('express').Router();
 
-const {getEcoregions, getOrders, getSpeciesByFamily, createOrder, createSpecies, modifySpecies, modifyGenus, modifyFamily, deleteOrder} = require('./functions');
-
-const {getFamilies} = require('./taxonApiRoutes');
+const {getEcoregions} = require('./geoApiRoutes');
+const {getOrders, getFamilies, getSpeciesByFamily} = require('./getTaxonRoutes');
+const {createOrder, createSpecies} = require('./postTaxonRoutes');
+const {modifyFamily, modifyGenus, modifySpecies} = require('./putTaxonRoutes');
+const {deleteOrder} = require('./delTaxonRoutes');
 
 router.route('/ecoregions').get(getEcoregions);
 
