@@ -41,6 +41,8 @@ async function onSubmitHandler(event) {
             formatEcoregionSearch(responseData);
         } else if (endpoint === 'orders') {
             formatOrderSearch(responseData);
+        } else if (endpoint === 'families') {
+            formatFamilySearch(responseData);
         }
     }
 };
@@ -93,7 +95,7 @@ function formatOrderSearch(ordersArray) {
 
         const orderNameA = document.createElement('a');
         orderNameA.classList = 'hover:text-lime-600';
-        orderNameA.setAttribute('href', `/oreders/${element.id}`);
+        orderNameA.setAttribute('href', `/orders/${element.id}`);
         orderNameA.textContent = element.order_name;
 
         const extraInfo = document.createElement('p');
@@ -104,6 +106,34 @@ function formatOrderSearch(ordersArray) {
         orderNameP.appendChild(orderNameA);
 
         listItem.appendChild(orderNameP);
+        listItem.appendChild(extraInfo);
+
+        searchResultsDiv.appendChild(listItem);
+    })
+};
+
+function formatFamilySearch(familiesArray) {
+    familiesArray.forEach(element => {
+        const listItem = document.createElement('div');
+        listItem.classList = 'basis-1/3 search-result';
+
+        // create elements inside listItem
+        const familyNameP = document.createElement('p');
+        familyNameP.classList = 'font-semibold mb-0';
+
+        const familyNameA = document.createElement('a');
+        familyNameA.classList = 'hover:text-lime-600';
+        familyNameA.setAttribute('href', `/families/${element.id}`);
+        familyNameA.textContent = element.family_name;
+
+        const extraInfo = document.createElement('p');
+        extraInfo.classList = 'font-thin text-sm';
+        extraInfo.textContent = element.order.order_name;
+
+        // append
+        familyNameP.appendChild(familyNameA);
+
+        listItem.appendChild(familyNameP);
         listItem.appendChild(extraInfo);
 
         searchResultsDiv.appendChild(listItem);
