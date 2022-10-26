@@ -588,6 +588,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mb-0 {
+  margin-bottom: 0px;
+}
+
 .flex {
   display: flex;
 }
@@ -795,6 +799,10 @@ video {
   font-weight: 600;
 }
 
+.font-thin {
+  font-weight: 100;
+}
+
 .italic {
   font-style: italic;
 }
@@ -816,4 +824,9 @@ video {
 
 .hover\:font-semibold:hover {
   font-weight: 600;
+}
+
+.hover\:text-lime-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(101 163 13 / var(--tw-text-opacity));
 }

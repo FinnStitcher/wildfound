@@ -16,6 +16,12 @@ async function onSubmitHandler(event) {
         return;
     }
 
+    // now make sure it's valid as a regex
+    if (!!searchInput.value.match(/\W/)) {
+        displayErrorText('This input is invalid.');
+        return;
+    }
+
     let queryUrl = `/api/${endpoint}?search=`;
 
     // getting information from the search bar
@@ -43,11 +49,15 @@ async function onSubmitHandler(event) {
             formatOrderSearch(responseData);
         } else if (endpoint === 'families') {
             formatFamilySearch(responseData);
+        } else if (endpoint === 'genera') {
+            formatGenusSearch(responseData);
         }
     }
 };
 
 function displayErrorText(text) {
+    searchResultsDiv.innerHTML = '';
+    
     const errorText = document.createElement('p');
     errorText.textContent = text;
 
@@ -61,22 +71,16 @@ function formatEcoregionSearch(ecosArray) {
         listItem.classList = 'basis-1/2 search-result';
 
         // create elements inside listItem
-        const ecoNameP = document.createElement('p');
-        ecoNameP.classList = 'font-semibold mb-0';
-        
-        const ecoNameA = document.createElement('a');
-        ecoNameA.classList = "hover:text-lime-600";
-        ecoNameA.setAttribute('href', `/ecoregions/${element.id}`);
-        ecoNameA.textContent = element.ecoregion_name;
+        const ecoName = document.createElement('p');
+        ecoName.classList = 'font-semibold mb-0';
+        ecoName.innerHTML = `<a href="/ecoregions/${element.id}" class="hover:text-lime-600">${element.ecoregion_name}</a>`;
 
         const extraInfo = document.createElement('p');
         extraInfo.classList = 'font-thin text-sm';
         extraInfo.textContent = `${element.realm.realm_name} - ${element.biome.biome_name}`;
 
         // append contents of listItem
-        ecoNameP.appendChild(ecoNameA);
-
-        listItem.appendChild(ecoNameP);
+        listItem.appendChild(ecoName);
         listItem.appendChild(extraInfo);
 
         // append to searchResultsDiv
@@ -90,22 +94,16 @@ function formatOrderSearch(ordersArray) {
         listItem.classList = 'basis-1/3 search-result';
 
         // create elements inside listItem
-        const orderNameP = document.createElement('p');
-        orderNameP.classList = 'font-semibold mb-0';
-
-        const orderNameA = document.createElement('a');
-        orderNameA.classList = 'hover:text-lime-600';
-        orderNameA.setAttribute('href', `/orders/${element.id}`);
-        orderNameA.textContent = element.order_name;
+        const orderName = document.createElement('p');
+        orderName.classList = 'font-semibold mb-0';
+        orderName.innerHTML = `<a href="/orders/${element.id}" class="hover:text-lime-600">${element.order_name}</a>`;
 
         const extraInfo = document.createElement('p');
         extraInfo.classList = 'font-thin text-sm';
         extraInfo.textContent = element.class.class_name;
 
         // append
-        orderNameP.appendChild(orderNameA);
-
-        listItem.appendChild(orderNameP);
+        listItem.appendChild(orderName);
         listItem.appendChild(extraInfo);
 
         searchResultsDiv.appendChild(listItem);
@@ -118,22 +116,37 @@ function formatFamilySearch(familiesArray) {
         listItem.classList = 'basis-1/3 search-result';
 
         // create elements inside listItem
-        const familyNameP = document.createElement('p');
-        familyNameP.classList = 'font-semibold mb-0';
-
-        const familyNameA = document.createElement('a');
-        familyNameA.classList = 'hover:text-lime-600';
-        familyNameA.setAttribute('href', `/families/${element.id}`);
-        familyNameA.textContent = element.family_name;
+        const familyName = document.createElement('p');
+        familyName.classList = 'font-semibold mb-0';
+        familyName.innerHTML = `<a href="/families/${element.id}" class="hover:text-lime-600">${element.family_name}</a>`;
 
         const extraInfo = document.createElement('p');
         extraInfo.classList = 'font-thin text-sm';
         extraInfo.textContent = element.order.order_name;
 
         // append
-        familyNameP.appendChild(familyNameA);
+        listItem.appendChild(familyName);
+        listItem.appendChild(extraInfo);
 
-        listItem.appendChild(familyNameP);
+        searchResultsDiv.appendChild(listItem);
+    })
+};
+
+function formatGenusSearch(genusArray) {
+    genusArray.forEach(element => {
+        const listItem = document.createElement('div');
+        listItem.classList = 'basis-1/3 search-result';
+
+        const genusName = document.createElement('p');
+        genusName.classList = 'font-semibold mb-0';
+        genusName.innerHTML = `<a href="/genera/${element.id}" class="hover:text-lime-600">${element.genus_name}</a>`;
+
+        const extraInfo = document.createElement('p');
+        extraInfo.classList = 'font-thin text-sm';
+        extraInfo.textContent = element.family.family_name;
+
+        // append
+        listItem.appendChild(genusName);
         listItem.appendChild(extraInfo);
 
         searchResultsDiv.appendChild(listItem);

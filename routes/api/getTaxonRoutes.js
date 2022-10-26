@@ -50,6 +50,30 @@ async function getFamilies(req, res) {
     res.json(data);
 };
 
+async function getGenera(req, res) {
+    const {search} = req.query;
+    // replace dashes with spaces
+    const searchTerm = search.replace(/-/g, ' ');
+
+    const dbResponse = await Genus.findAll({
+        where: {
+            genus_name: {
+                [Op.regexp]: searchTerm
+            }
+        },
+        include: [
+            {
+                model: Family,
+                attributes: ['family_name', 'id']
+            }
+        ]
+    });
+
+    const data = dbResponse.map(element => element.get({plain: true}));
+
+    res.json(data);
+};
+
 async function getSpeciesByFamily(req, res) {
     const {idArray} = req.body;
 
@@ -81,5 +105,6 @@ async function getSpeciesByFamily(req, res) {
 module.exports = {
     getOrders,
     getFamilies,
+    getGenera,
     getSpeciesByFamily
 };

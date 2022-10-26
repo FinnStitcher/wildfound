@@ -2,6 +2,10 @@ const router = require('express').Router();
 
 const { Genus, Species, CommonName } = require('../models');
 
+router.get('/', async (req, res) => {
+    res.render('genera-home');
+});
+
 router.get('/:genusID', async (req, res) => {
     const {genusID} = req.params;
 
