@@ -51,6 +51,8 @@ async function onSubmitHandler(event) {
             formatFamilySearch(responseData);
         } else if (endpoint === 'genera') {
             formatGenusSearch(responseData);
+        } else if (endpoint === 'species') {
+            formatSpeciesSearch(responseData);
         }
     }
 };
@@ -148,6 +150,53 @@ function formatGenusSearch(genusArray) {
         // append
         listItem.appendChild(genusName);
         listItem.appendChild(extraInfo);
+
+        searchResultsDiv.appendChild(listItem);
+    })
+};
+
+function formatSpeciesSearch(speciesArray) {
+    speciesArray.forEach(element => {
+        // figure out what object structure we're working with, based on whether the common_name property is a string or object
+        const commonNameFirst = typeof element.common_name === 'string';
+
+        // creating variables
+        let common_name, species_name, genus_name, species_id = null;
+
+        // set values
+        if (commonNameFirst) {
+            common_name = element.common_name;
+            species_name = element.species.species_name;
+            genus_name = element.species.genus.genus_name;
+            species_id = element.species.id;
+        } else {
+            // if common_name exists, put it here
+            common_name = element.common_name?.common_name;
+            species_name = element.species_name;
+            genus_name = element.genus.genus_name;
+            species_id = element.id;
+        };
+
+        // actually make the elements
+        const listItem = document.createElement('div');
+        listItem.classList = 'basis-1/3 search-result';
+
+        const scientificName = document.createElement('p');
+        scientificName.classList = 'font-semibold mb-0';
+        scientificName.innerHTML = `<a href="/species/${species_id}" class="italic hover:text-lime-600">${genus_name} ${species_name}</a>`;
+        listItem.appendChild(scientificName);
+
+        if (common_name) {
+            const commonName = document.createElement('p');
+            commonName.classList = 'mb-0';
+            commonName.textContent = common_name;
+            listItem.appendChild(commonName);
+        }
+
+        // const extraInfo = document.createElement('p');
+        // extraInfo.classList = 'font-thin text-sm';
+        // extraInfo.textContent = element.family.family_name;
+        //listItem.appendChild(extraInfo);
 
         searchResultsDiv.appendChild(listItem);
     })

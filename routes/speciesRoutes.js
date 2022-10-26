@@ -2,6 +2,10 @@ const router = require('express').Router();
 
 const {Genus, Species, Ecoregion, Realm, CommonName} = require('../models');
 
+router.get('/', async (req, res) => {
+    res.render('species-home');
+});
+
 router.get('/:speciesID', async (req, res) => {
     const {speciesID} = req.params;
 
