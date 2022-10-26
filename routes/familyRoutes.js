@@ -2,6 +2,10 @@ const router = require('express').Router();
 
 const {Family, Genus} = require('../models');
 
+router.get('/', async (req, res) => {
+    res.render('families-home');
+});
+
 router.get('/:familyID', async (req, res) => {
     const {familyID} = req.params;
 

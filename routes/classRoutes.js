@@ -3,7 +3,7 @@ const router = require('express').Router();
 const {Class, Order} = require('../models');
 
 router.get('/', (req, res) => {
-    res.render('list-classes');
+    res.render('classes-home');
 });
 
 router.get('/:classID', async (req, res) => {
