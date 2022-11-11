@@ -11,7 +11,7 @@ router.get('/:ecoID', async (req, res) => {
     const {ecoID} = req.params;
 
     // get this ecoregion and all connected species, as well as the biome and realm
-    const dbResponse1 = await Ecoregion.findOne({
+    const dbEcoregionsData = await Ecoregion.findOne({
         where: {
             id: ecoID
         },
@@ -32,16 +32,16 @@ router.get('/:ecoID', async (req, res) => {
             }
         ]
     });
-    const data1 = dbResponse1.get({plain: true});
+    const ecoregionsData = dbEcoregionsData.get({plain: true});
 
     // create array of species ids
     const speciesIds = [];
-    data1.species.forEach(element => {
+    ecoregionsData.species.forEach(element => {
         speciesIds.push(element.id);
     });
 
     // get class-order-species stack
-    const dbResponse2 = await Class.findAll({
+    const dbSpeciesData = await Class.findAll({
         attributes: ['id', 'class_name'],
         include: {
             model: Order,
@@ -65,9 +65,12 @@ router.get('/:ecoID', async (req, res) => {
             }
         }
     });
-    const data2 = dbResponse2.map(element => element.get({plain: true}));
+    const speciesData = dbSpeciesData.map(element => element.get({plain: true}));
 
-	res.render('search-ecoregion', {ecoData: data1, speciesData: data2});
+    // remove any taxa that aren't represented here
+    const cleanedSpeciesData = speciesData.filter(element => element.orders[0]);
+
+	res.render('search-ecoregion', {ecoData: ecoregionsData, speciesData: cleanedSpeciesData});
 });
 
 module.exports = router;
