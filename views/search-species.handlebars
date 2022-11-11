@@ -3,11 +3,15 @@
         {{speciesData.common_name.common_name}}
     </h1>
     <p class='text-center'>
-        <i>{{speciesData.genus.genus_name}} {{speciesData.species_name}}</i>
+        <i><a href="/genera/{{speciesData.genus.id}}">{{speciesData.genus.genus_name}}</a> {{speciesData.species_name}}</i>
     </p>
 {{else}}
-    <h1 class="text-center text-2xl"><i>{{speciesData.genus.genus_name}} {{speciesData.species_name}}</i></h1>
+    <h1 class="text-center text-2xl"><i>
+        <a href="/genera/{{speciesData.genus.id}}">{{speciesData.genus.genus_name}}</a> {{speciesData.species_name}}
+        </i></h1>
 {{/if}}
+
+<p>Click the genus name above to see more species in this genus.</p>
 
 <hr class="my-3">
 
