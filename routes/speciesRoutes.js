@@ -9,8 +9,8 @@ router.get('/', async (req, res) => {
 router.get('/:speciesID', async (req, res) => {
     const {speciesID} = req.params;
 
-    // get realm-ecoregion-species-species data stack
-    const dbResponse = await Realm.findAll({
+    // get realm-ecoregion-species data stack
+    const dbGeoData = await Realm.findAll({
         attributes: ['id', 'realm_name'],
         include: {
             model: Ecoregion,
@@ -21,29 +21,40 @@ router.get('/:speciesID', async (req, res) => {
                 attributes: ['id', 'species_name'],
                 where: {
                     id: speciesID
-                },
-                include: [
-                    {
-                        model: Genus,
-                        attributes: ['id', 'genus_name']
-                    },
-                    {
-                        model: CommonName,
-                        attributes: ['id', 'common_name']
-                    }
-                ]
+                }
             }
         }
     });
-    const data = dbResponse.map(element => element.get({plain: true}));
+    const geoData = dbGeoData.map(element => element.get({plain: true}));
     
     // get rid of any realms where this species is not found
-    const cleanedData = data.filter(element => element.ecoregions[0]);
-    
-    // extract species data
-    const [speciesData] = cleanedData[0].ecoregions[0].species;
+    // returns true if there's an element in the ecoregions array
+    const cleanedGeoData = geoData.filter(element => element.ecoregions[0]);
 
-    res.render('search-species', {data: cleanedData, speciesData});
+    // get species data by itself
+    const dbSpeciesData = await Species.findOne({
+        where: {
+            id: speciesID
+        },
+        include: [
+            {
+                model: Genus,
+                attributes: ['id', 'genus_name']
+            },
+            {
+                model: CommonName,
+                attributes: ['id', 'common_name']
+            }
+        ]
+    });
+    const speciesData = dbSpeciesData.get({plain: true});
+
+    // double check that this species is actually associated with any ecoregions
+    if (cleanedGeoData[0]) {
+        res.render('search-species', {geoData: cleanedGeoData, speciesData});
+    } else {
+        res.render('search-species', {geoData: null, speciesData})
+    }
 });
 
 module.exports = router;

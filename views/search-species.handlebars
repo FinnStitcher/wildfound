@@ -12,11 +12,15 @@
 <hr class="my-3">
 
 <div class='divide-y divide-neutral-300'>
-	{{#each data}}
-		<section class='py-3'>
-			<h2 class='text-lg font-semibold'>{{realm_name}}</h2>
+    {{#if geoData}}
+        {{#each geoData}}
+            <section class='py-3'>
+                <h2 class='text-lg font-semibold'>{{realm_name}}</h2>
 
-            {{> list ecoregions}}
-		</section>
-	{{/each}}
+                {{> list ecoregions}}
+            </section>
+        {{/each}}
+    {{else}}
+        <p>This species doesn't seem to be associated to any ecoregions. That's strange.</p>
+    {{/if}}
 </div>

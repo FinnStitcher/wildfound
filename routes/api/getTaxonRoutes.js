@@ -79,9 +79,8 @@ async function getSpecies(req, res) {
     // replace dashes with spaces
     const searchTerm = search.replace(/-/g, ' ');
 
-    let data = null;
-
-    const dbResponse = await Species.findAll({
+    // look for search term in scientific names
+    const dbSearchByScientific = await Species.findAll({
         where: {
             species_name: {
                 [Op.regexp]: searchTerm
@@ -98,31 +97,31 @@ async function getSpecies(req, res) {
             }
         ]
     });
-    data = dbResponse.map(element => element.get({plain: true}));
+    const searchByScientific = dbSearchByScientific.map(element => element.get({plain: true}));
     
-    // if searching by scientific name didn't work, try common names
-    if (!data.length) {
-        const dbResponse2 = await CommonName.findAll({
-            where: {
-                common_name: {
-                    [Op.regexp]: searchTerm
+    // look for search term in common names
+    const dbSearchByCommon = await CommonName.findAll({
+        where: {
+            common_name: {
+                [Op.regexp]: searchTerm
+            }
+        },
+        include: [
+            {
+                model: Species,
+                attributes: ['species_name', 'id'],
+                include: {
+                    model: Genus,
+                    attributes: ['genus_name', 'id']
                 }
-            },
-            include: [
-                {
-                    model: Species,
-                    attributes: ['species_name', 'id'],
-                    include: {
-                        model: Genus,
-                        attributes: ['genus_name', 'id']
-                    }
-                }
-            ]
-        });
-        data = dbResponse2.map(element => element.get({plain: true}));
-    };
+            }
+        ]
+    });
+    const searchByCommon = dbSearchByCommon.map(element => element.get({plain: true}));
 
-    res.json(data);
+    const allSearchResults = searchByScientific.concat(searchByCommon);
+
+    res.json(allSearchResults);
 }
 
 async function getSpeciesByFamily(req, res) {
