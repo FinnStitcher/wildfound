@@ -16,7 +16,7 @@ router.get('/:classID', async (req, res) => {
         attributes: ['id', 'class_name'],
         include: {
             model: Order,
-            attributes: ['id', 'order_name'],
+            attributes: ['id', 'order_name']
         }
     });
 

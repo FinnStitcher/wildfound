@@ -1,5 +1,8 @@
 <div class='text-center'>
 	<h1 class='text-2xl'>{{locate_name data}}</h1>
+    {{#if data.order_common_name}}
+    <h2 class="text-lg mb-1">{{data.order_common_name.order_common_name}}</h2>
+    {{/if}}
 
     {{#if isFamily}}
         <p class="text-center">

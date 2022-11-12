@@ -1,9 +1,9 @@
 const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Order extends Model {};
+class OrderCommonName extends Model {};
 
-Order.init(
+OrderCommonName.init(
     {
         id: {
             type: DataTypes.TINYINT,
@@ -11,11 +11,11 @@ Order.init(
             primaryKey: true,
             autoIncrement: true
         },
-        order_name: {
+        order_common_name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        class_id: {
+        order_id: {
             type: DataTypes.TINYINT,
             allowNull: false
         }
@@ -25,8 +25,8 @@ Order.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'orders'
+        modelName: 'order_common_names'
     }
 );
 
-module.exports = Order;
+module.exports = OrderCommonName;

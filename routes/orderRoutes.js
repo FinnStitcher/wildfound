@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const {Order, Family, Class} = require('../models');
+const {Order, Family, Class, OrderCommonName} = require('../models');
 
 router.get('/', async (req, res) => {
     res.render('orders-home');
@@ -22,6 +22,10 @@ router.get('/:orderID', async (req, res) => {
             {
                 model: Class,
                 attributes: ['id', 'class_name']
+            },
+            {
+                model: OrderCommonName,
+                attributes: ['id', 'order_common_name']
             }
         ]
     });

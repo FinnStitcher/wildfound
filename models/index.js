@@ -10,6 +10,7 @@ const Species = require('./Species');
 
 const EcoregionSpecies = require('./EcoregionSpecies');
 const CommonName = require('./CommonName');
+const OrderCommonName = require('./OrderCommonName');
 
 // many ecoregions <-> one biome
 Ecoregion.belongsTo(Biome, {
@@ -105,6 +106,15 @@ CommonName.belongsTo(Species, {
     foreign_key: 'species_id'
 });
 
+// one order <-> one common name
+Order.hasOne(OrderCommonName, {
+    foreign_key: 'order_id'
+});
+
+OrderCommonName.belongsTo(Order, {
+    foreign_key: 'order_id'
+});
+
 module.exports = {
     Realm,
     Biome,
@@ -115,5 +125,6 @@ module.exports = {
     Class,
     Order,
     EcoregionSpecies,
-    CommonName
+    CommonName,
+    OrderCommonName
 };
