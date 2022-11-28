@@ -1,0 +1,26 @@
+<div class='text-center'>
+	<h1 class='text-2xl'>{{locate_name data}}</h1>
+    {{#if data.order_common_name}}
+    <h2 class="text-lg mb-1">{{data.order_common_name.order_common_name}}</h2>
+    {{/if}}
+
+    {{#if isFamily}}
+        <p class="text-center">
+            <a href="/orders/{{data.order.id}}">{{data.order.order_name}}</a>
+        </p>
+
+        <p>Click the order name above to explore further.</p>
+    {{/if}}
+
+    {{#if isOrder}}
+        <p class="text-center">
+            <a href="/classes/{{data.class.id}}">{{data.class.class_name}}</a>
+        </p>
+
+        <p>Click the class name above to explore further.</p>
+    {{/if}}
+
+    <hr class="my-3">
+
+    {{> list subdata}}
+</div>

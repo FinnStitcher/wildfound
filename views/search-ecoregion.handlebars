@@ -1,0 +1,48 @@
+<h1 class='text-center text-2xl'>{{ecoData.ecoregion_name}}</h1>
+
+<p class='text-center'>
+    <a href='/realms/{{ecoData.realm.id}}'>
+        {{ecoData.realm.realm_name}}
+    </a>
+	-
+	<a href='/biomes/{{ecoData.biome.id}}'>
+        {{ecoData.biome.biome_name}}
+    </a>
+</p>
+
+<hr class="my-3">
+
+<div class='divide-y divide-neutral-300'>
+	{{#each speciesData}}
+		<section class='py-3'>
+			<h2 class='text-xl font-semibold'>{{class_name}}</h2>
+
+			{{#each orders}}
+				<h3 class='text-lg underline mt-2.5'>{{order_name}}</h3>
+
+                {{!-- not using partial due to unique display --}}
+				<div class='flex flex-row flex-wrap'>
+					{{#each species}}
+						{{#if common_name.common_name}}
+							<p class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'>
+								<a href='/species/{{id}}' class="italic">
+									{{genus.genus_name}}
+									{{species_name}}
+								</a>
+								-
+								{{common_name.common_name}}</p>
+						{{else}}
+							<p class='hover:bg-green-200 hover:font-semibold rounded p-0.5 basis-1/2'>
+								<a href='/species/{{id}}' class="italic">
+									{{genus.genus_name}}
+									{{species_name}}
+								</a>
+							</p>
+						{{/if}}
+					{{/each}}
+				</div>
+
+			{{/each}}
+		</section>
+	{{/each}}
+</div>

@@ -1,0 +1,41 @@
+p {
+    margin-bottom: 0.5rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: center;
+}
+
+hr {
+    margin: 0.75rem 0;
+}
+
+a:hover {
+    font-weight: 600;
+}
+
+.link {
+    border-radius: 0.25rem;
+    padding: 0.125rem;
+}
+
+.link:hover {
+    background: rgb(187 247 208 / 0.5);
+}
+
+.search-result {
+    /* px-2 */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    /* py-1 */
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.search-result:hover {
+    /* hover:bg-green-200/50 */
+    background-color: rgb(186 247 208 / 0.5);
+}
