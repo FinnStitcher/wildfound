@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <title>Wildfound</title>
+</head>
+<body>
+    <div class="flex flex-row">
+        <aside class="bg-green-200 basis-1/6 min-h-screen">
+            <h2 class="text-xl text-center py-4">
+                <a href="/">Wildfound</a>
+            </h2>
+
+            <nav class="flex flex-col">
+                <ul class="ml-2.5">
+                    <li><a href="/realms">Realms</a></li>
+                    <li><a href="/biomes">Biomes</a></li>
+                    <li><a href="/ecoregions">Ecoregions</a></li>
+
+                    <hr class="border-stone-400 mr-2.5">
+
+                    <li><a href="/classes">Classes</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                    <li><a href="/families">Families</a></li>
+                    <li><a href="/genera">Genera</a></li>
+                    <li><a href="/species">Species</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="basis-5/6 py-2.5 px-4">
+            {{{body}}}
+        </main>
+    </div>
+</body>
+</html>

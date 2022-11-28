@@ -1,0 +1,30 @@
+{{#if speciesData.common_name}}
+    <h1 class='text-center text-2xl'>
+        {{speciesData.common_name.common_name}}
+    </h1>
+    <p class='text-center'>
+        <i><a href="/genera/{{speciesData.genus.id}}">{{speciesData.genus.genus_name}}</a> {{speciesData.species_name}}</i>
+    </p>
+{{else}}
+    <h1 class="text-center text-2xl"><i>
+        <a href="/genera/{{speciesData.genus.id}}">{{speciesData.genus.genus_name}}</a> {{speciesData.species_name}}
+        </i></h1>
+{{/if}}
+
+<p>Click the genus name above to see more species in this genus.</p>
+
+<hr class="my-3">
+
+<div class='divide-y divide-neutral-300'>
+    {{#if geoData}}
+        {{#each geoData}}
+            <section class='py-3'>
+                <h2 class='text-lg font-semibold'>{{realm_name}}</h2>
+
+                {{> list ecoregions}}
+            </section>
+        {{/each}}
+    {{else}}
+        <p>This species doesn't seem to be associated to any ecoregions. That's strange.</p>
+    {{/if}}
+</div>
