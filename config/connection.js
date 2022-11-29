@@ -1,13 +1,14 @@
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
-    'wildfound',
-    'root',
-    'absentwallprogramrequest',
+    process.env.MYSQLDATABASE,
+    process.env.MYSQLUSER,
+    process.env.MYSQLPASSWORD,
     {
-        host: 'localhost',
+        host: process.env.MYSQLHOST,
         dialect: 'mysql',
-        port: 3306
+        port: process.env.MYSQLPORT
     }
 );
 
